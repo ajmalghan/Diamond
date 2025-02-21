@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#SBATCH -N 1
+
+#SBATCH --ntasks-per-node=4
+
+#SBATCH --job-name=test
+
+#SBATCH -o test_out%j.out
+
+#SBATCH -e test_out%j.err
+
+
+echo -e '\n submitted Quantum Espresso job'
+
+
+# loads Open MPI and Quantum Espresso modules
+
+module load openmpi/gcc
+
+module load spack
+
+. /home/apps/spack/share/spack/setup-env.sh
+
+spack load quantum-espresso@7.0
+
+
+
+# run Quantum Espresso using Open MPI's mpirun
+
+# results will be printed to output.file
+                                                                                                                                             1,1           Top
+#command to run - time mpirun -n 4 pw.x -npool 2 -in <input file>
+
+mpirun -n 4 pw.x -npool 2 -in 2x2.in > 2x2.out
+                                                         
